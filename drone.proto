@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package drone;
+
+service DroneControl {
+  // Server streams GPS data to client
+  rpc StreamTelemetry(Empty) returns (stream TelemetryData);
+}
+
+message Empty {}
+
+message TelemetryData {
+  double latitude = 1;
+  double longitude = 2;
+  float altitude = 3;
+  int64 timestamp_ms = 4;
+}
