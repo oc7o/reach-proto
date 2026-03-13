@@ -1,0 +1,47 @@
+ macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Protobuf generated files
+# Rust
+*.rs.bk
+/target/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+
+# Swift
+.build/
+*.xcodeproj/
+*.xcworkspace/
+*.resolved
+DerivedData/
+.swiftpm/
+
+# Generated protobuf output (common output dirs)
+gen/
+generated/
+out/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
