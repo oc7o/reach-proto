@@ -3,8 +3,19 @@ syntax = "proto3";
 package drone;
 
 service DroneControl {
-  // Server streams GPS data to client
+  // Continuously streams GPS/position data to the client.
   rpc StreamTelemetry(Empty) returns (stream TelemetryData);
+
+  // Arms the drone motors. Must be called before the drone can fly.
+  rpc Arm(Empty) returns (CommandResult);
+
+  // Disarms the drone motors.
+  rpc Disarm(Empty) returns (CommandResult);
+
+  // Sends RC stick input to the flight controller.
+  // Call this at ~20Hz while in control. The Pixhawk will trigger a
+  // failsafe if overrides stop arriving.
+  rpc SendRCOverride(RCChannels) returns (CommandResult);
 }
 
 message Empty {}
@@ -14,4 +25,20 @@ message TelemetryData {
   double longitude = 2;
   float altitude = 3;
   int64 timestamp_ms = 4;
+}
+
+// Result returned by command RPCs.
+message CommandResult {
+  bool success = 1;
+  string message = 2;
+}
+
+// RC channel values in PWM microseconds.
+// Neutral = 1500, min = 1000, max = 2000.
+// Throttle neutral (motors idle) = 1000.
+message RCChannels {
+  uint32 roll     = 1;
+  uint32 pitch    = 2;
+  uint32 throttle = 3;
+  uint32 yaw      = 4;
 }
